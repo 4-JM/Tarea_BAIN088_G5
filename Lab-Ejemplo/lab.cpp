@@ -3,6 +3,7 @@
 #include <algorithm> // Para ordenar un vector o Array.
 #include <cstdio>
 
+
 #define REP 10000 // Cantidad de veces a repetir la operacion REP=(1 * 10^5)
 #define N (1 << 25) // Cantidad de elementos N = (2^25)
 #define MAX (1 << 25) // Numero maximo a generar por el random MAX=(2^25)

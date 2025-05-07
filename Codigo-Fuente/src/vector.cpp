@@ -104,7 +104,7 @@ int busquedaBinariaAdaptada (const vector <string> &v, const string& x){
     m = r/2;
     while (l <= r){
         if (x == v[m]){
-            return m;
+            return -1;
         }
         else{
             if (x < v[m]){
@@ -136,7 +136,9 @@ void eliminaElemento(vector <string> &v, string x){
 
 void insertaElemento(vector <string> &v, string x){
     int indice = busquedaBinariaAdaptada(v, x);
-    v.insert(v.begin() + indice, x);
+    if (indice != -1){
+        v.insert(v.begin() + indice, x);
+    }
     
 }
     

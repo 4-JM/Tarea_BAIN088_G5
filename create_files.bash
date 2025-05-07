@@ -1,26 +1,25 @@
 #!/bin/bash
 
-# Verificar si se proporcionó el número de directorios a crear
+# Verificar parámetros
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Uso: $0 <cantidad_de_directorios>" "<directorio_destino>"
+  echo "Uso: $0 <cantidad_de_archivos> <directorio_destino>"
   exit 1
 fi
 
-# Número de directorios a crear
-num_dirs=$1
-
-# Directorio donde se guardaran los archivos
+num_files=$1
 output_dir=$2
 
-# Conjunto de extensiones posibles
-extensions=(".txt" ".csv" ".cpp" ".c" ".json" ".xml" ".md")
+extensions=(".txt" ".csv" ".cpp" ".c" ".json" ".xml" ".md" ".py" ".cpp" ".mp4" ".avi" ".png")
 
-# Función para generar un nombre aleatorio
 random_name() {
-  echo "$(tr -dc 'a-z0-9' </dev/urandom | head -c $((RANDOM % 11 + 10)))"
-  # cat /dev/urandom | tr -dc 'a-z' | fold -w $((RANDOM % 11 + 10)) | head -n 1
+  tr -dc 'a-z0-9' </dev/urandom | head -c $((RANDOM % 11 + 10))
 }
 
-mkdir -p $2
+mkdir -p "$output_dir"
 
-seq 1 $num_dirs | xargs -I {} touch "$output_dir/file_{}.txt"
+# Versión corregida - sin usar xargs con {}
+for i in $(seq 1 $num_files); do
+  touch "${output_dir}/$(random_name)${extensions[$((RANDOM % ${#extensions[@]}))]}"
+done
+
+echo "Creados $num_files archivos en $output_dir"

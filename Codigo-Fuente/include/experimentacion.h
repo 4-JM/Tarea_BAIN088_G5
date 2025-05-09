@@ -1,16 +1,22 @@
 #include <vector>
 #include <string>
 #include <ctime>
-#include <random>
+#include <chrono>
+#include <algorithm>
 
 #define REP 100000
 
-auto creacionDirectorio(std::vector <std::string> &vec, const std::string directorio);
 
-auto testSecSearch(std::vector <std::string> &vec);
+std::chrono::microseconds creacionVector(std::vector <std::string> &vec, const std::string directorio);
 
-auto testBinSearch(std::vector <std::string> &vec);
+std::chrono::microseconds testSecSearch(std::vector <std::string> &vec);
 
-auto testEliminacion(std::vector <std::string> &vec);
+std::chrono::microseconds ordenarVector(std::vector<std::string>& v);
 
-auto testInsercion(std::vector <std::string> &vec);
+std::chrono::microseconds testBinSearch(std::vector <std::string> &vec);
+
+std::chrono::microseconds testEliminacion(std::vector <std::string> &vec);
+
+std::chrono::microseconds testInsercion(std::vector <std::string> &vec);
+
+std::string obtenerNombreAleatorio(const std::vector<std::string>& vec);

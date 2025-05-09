@@ -1,14 +1,16 @@
 #include <vector>
 #include <string>
+#include <filesystem>
+namespace fs = std::filesystem;
 
 //Funciones de busqueda
-int busquedaSecuencial(const std::vector <std::string> &v, const std::string& x);
-int busquedaBinaria (const std::vector <std::string> &v, const std::string& x);
+int busquedaSecuencial(const std::vector <std::string> &v, const std::string& nombreBuscado);
+int busquedaBinaria (const std::vector <std::string> &v, const std::string& nombreBuscado);
 
-//Funcion para crear el vector de rutas de archivos en el directorio
-std::vector <std::string> crear_vector(const std::string directorio);
+std::vector<std::string> crear_vector(const std::string& directorio);
 
 //Funcion(es) para ordenar el vector ascendentemente (usamos quicksort ya que ordena in-place y la entrada es muy grande)
+//Edit: finalmente decidimos usar std::sort(). Las razones estan en el informe.
 int partition(std::vector<std::string>& v, int L, int R);
 void quickSort(std::vector <std::string> &v, int L, int R);
 

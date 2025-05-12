@@ -1,61 +1,63 @@
 #include <iostream>
-#include <vector>
-#include <chrono>
+#include <ctime>
 #include "experimentacion.h"
 
 using namespace std;
 
-// Función principal que ejecuta los experimentos
 int main() {
 
+    // Inicializar la semilla para la generación de números aleatorios
     srand(time(nullptr));
+    
     // Definir el directorio de entrada
-    string directorio = "/home/jm_4/Taller_3/TareaGrupal_INFO088_Grupo5_2025-1/mediumDir";  // Actualiza esto con la ruta correcta
+    string directorio = "/home/jm_4/Taller_3/TareaGrupal_INFO088_Grupo5_2025-1/smallDir"; 
 
     // Crear el vector de archivos y medir su tiempo de creación
+    cout << "Creando vector..." << endl;
     vector<string> archivos;
     auto duracion_creacion = creacionVector(archivos, directorio);
-
-    // Imprimir el tiempo de creación del vector
-    cout << "Tiempo de creacion del vector: " << duracion_creacion.count() << " microsegundos" << endl;
-
-    // Realizar la búsqueda secuencial antes de ordenar el vector
-    auto duracion_sec = testSecSearch(archivos);
-    cout << "Tiempo de busqueda secuencial: " << duracion_sec.count() << " microsegundos" << endl;
-
-    /* Ordenar el vector utilizando QuickSort (finalmente lo cambiamos por std::sort)
-    )
     
-    cout << "Ordenando vector con quicksort..." << endl; 
+    cout << "Número de archivos cargados: " << archivos.size() << endl;
+    cout << "Tiempo de creación del vector: " << duracion_creacion.count() << " microsegundos" << endl;
+    cout << endl;
+    
+    // Realizar la búsqueda secuencial antes de ordenar el vector
+    cout << "Experimentando con: Busqueda Secuencial..." << endl;
+    auto duracion_sec = testSecSearch(archivos);
+    cout << "Tiempo total para " << REP << " búsquedas secuenciales: " << duracion_sec.count() << " microsegundos" << endl;
+    cout << endl;
+    
+    // Ordenamos el vector con QuickSort
+    cout << "Ordenando vector con QuickSort..." << endl;
     auto duracion_orden = ordenarVector(archivos);
-    cout << "Vector ordenado con quicksort. Demoro " << duracion_orden.count() << " microsegundos" << endl;
-
-    */
-
-    //Ordenamos el vector con el sort de la STL
-
-    cout << "Ordenandoo vector.." << endl;
-    auto duracion_orden = ordenarVector(archivos);
-    cout << "Vector ordenado. Demoro " << duracion_orden.count() << " microsegundos" <<endl;
-
+    cout << "Vector ordenado. Tiempo de ordenamiento: " << duracion_orden.count() << " microsegundos" << endl;
+    cout << endl;
+    
     // Realizar la búsqueda binaria después de ordenar
-
-    cout << "Realizando busqueda binaria..." << endl;
+    cout << "Experimentando: Busqueda Binaria..." << endl;
     auto duracion_bin = testBinSearch(archivos);
-    cout << "Tiempo de busqueda binaria: " << duracion_bin.count() << " microsegundos" << endl;
+    cout << "Tiempo total para " << REP << " búsquedas binarias: " << duracion_bin.count() << " microsegundos" << endl;
+    cout << endl;
+    
+    // Realizar experimentos de eliminación
+    cout << "Actualmente hay " << archivos.size() << " elementos en el vector. Se quieren eliminar " << REP << endl;
+    cout << "Eliminando elementos (aleatorios)..." << endl;
 
-    // Realizar la eliminación de elementos
-    cout << "Eliminando elementos del vector..." << endl;
+    int before = archivos.size();
     auto duracion_elim = testEliminacion(archivos);
-    cout << "Tiempo de eliminacion: " << duracion_elim.count() << " microsegundos" << endl;
+    int after = archivos.size();
 
-    // Realizar la inserción de elementos
-    int tamaño_inicial = archivos.size();
-    cout << "Tamaño inicial: " << archivos.size() << endl;
-    cout << "Ingresando elementos al vector..." << endl;
+    cout << "Se han realizado " << (before - after) << " eliminaciones. Esto ha tardado " << duracion_elim.count() << " microsegundos" << endl;
+    cout << endl;
+    
+    // Realizar experimentos de inserción
+    before = archivos.size();
+    cout << "Actualmente hay " << before << " elementos en el vector. Ahora se quieren insertar " << REP << " elementos." << endl;
+
     auto duracion_insercion = testInsercion(archivos);
-    cout << "Tiempo de insercion: " << duracion_insercion.count() << " microsegundos" << endl;
-    cout << "Tamaño final: " << archivos.size() << endl;
-    cout << "Inserciones efectivas: " << archivos.size() - tamaño_inicial << endl;
-
+    after = archivos.size();
+    cout << "Se hicieron "<< (after - before) << " inserciones, en un tiempo total de " << duracion_insercion.count() << " microsegundos" << endl;
+    cout << "El tamanio final del vector es de " << after << " elementos." << endl;
+    
+    return 0;
 }

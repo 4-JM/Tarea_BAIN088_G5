@@ -54,5 +54,19 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp"
-    }
+    },
+        "files.watcherExclude": {
+          "**/bigDir/**": true,
+          "**/mediumDir/**": true,
+          "**/smallDir/**": true
+        },
+        "C_Cpp.files.exclude": {
+          "**/bigDir/**": true,
+          "**/mediumDir/**": true,
+          "**/smallDir/**": true
+        }
+        
+      
+      
+    
 }

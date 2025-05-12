@@ -25,7 +25,6 @@ int busquedaBinaria(const vector<string>& v, const string& nombreBuscado) {
         // Extraer solo el nombre del archivo de la ruta almacenada
         fs::path ruta(v[m]);
         string nombreArchivo = ruta.filename().string();
-
         if (nombreBuscado == nombreArchivo) {
             return m;
         } else {
@@ -39,10 +38,8 @@ int busquedaBinaria(const vector<string>& v, const string& nombreBuscado) {
     return -1;
 }
 
-
-
 // Función para obtener todos los archivos de un directorio (recursivo)
-vector<string> crear_vector(const string& directorio) {
+vector<string> crearVector(const string& directorio) {
     vector<string> archivos;
     
     try {
@@ -61,9 +58,33 @@ vector<string> crear_vector(const string& directorio) {
     return archivos;
 }
 
+void eliminaElemento(vector <string> &v, string x){
+    int indice = busquedaBinaria(v, x);
+    if (indice != -1) {v.erase(v.begin() + indice);}
+    else{
+        cout << "Error. El elemento no está en el directorio" << endl;
+    }
+}
+
+void insertaElemento(vector<std::string> &v, string x) {
+    // Encontrar posición usando lower_bound 
+    auto it = lower_bound(v.begin(), v.end(), x);
+
+    // Solo insertar si no es duplicado
+    if (it == v.end() || *it != x) {
+        v.insert(it, x); // Inserta manteniendo el orden
+    }
+}
+void imprimirVector(const vector<string>& v) {
+    cout << "=== Contenido del vector ===" << endl;
+    for (const auto& ruta : v) {
+        cout << ruta << endl;
+    }
+    cout << "=== Total: " << v.size() << " elementos ===" << endl;
+}
 
 int partition(vector<string>& v, int L, int R) {
-    // Elegir un pivote aleatorio entre L y R (no de todo el vector)
+    // Elegir un pivote aleatorio entre L y R 
     int pivotIndex = L + rand() % (R - L + 1);
     string pivot = v[pivotIndex];
     
@@ -95,11 +116,21 @@ void quickSort(vector<string>& v, int L, int R) {
 }
 
 
+// FUNCIONES QUE NO SE IMPLEMENTARON EN EL CODIGO FINAL
+
+/*
+A continuacion, la funcion busquedaBinariaAdaptada retorna el indice donde se deberia insertar 
+un nuevo elemento en un vector ordenado, manteniendo el orden. Si bien, comprobamos empiricamente que funciona
+en todos los casos que probamos, no sabemos si existe algun caso de borde que se nos haya pasado. Por esta razon,
+usamos "std::lower_bound" para insertar el nuevo elemento en el vector ordenado. Cabe destacar que se nos ocurrio a 
+nosotros esta funcion (busquedaBinariaAdaptada).
+
 // Busca la posición donde se debería insertar el string 'x' en un vector ordenado 'v'
 // Retorna -1 si ya existe (no se debe insertar), o el índice sugerido de inserción
+
 int busquedaBinariaAdaptada (const vector<string>& v, const string& x){
     int l, m, r, n, pL, pR;
-    bool es_par; // Indica si el tamaño del vector es par (afecta la política de inserción)
+    bool es_par; // Indica si el tamaño del vector es par (esto afecta la inserción)
 
     n = v.size();
     l = pL = 0;
@@ -132,29 +163,4 @@ int busquedaBinariaAdaptada (const vector<string>& v, const string& x){
     // Si es impar, insertamos antes de pR
     return es_par ? (pL + 1) : (pR - 1);
 }
-
-
-void eliminaElemento(vector <string> &v, string x){
-    int indice = busquedaBinaria(v, x);
-    if (indice != -1) {v.erase(v.begin() + indice);}
-    else{
-        cout << "Error. El elemento no está en el directorio" << endl;
-    }
-}
-
-void insertaElemento(std::vector<std::string> &v, std::string x) {
-    // Encontrar posición usando lower_bound (búsqueda binaria)
-    auto it = std::lower_bound(v.begin(), v.end(), x);
-
-    // Solo insertar si no es duplicado
-    if (it == v.end() || *it != x) {
-        v.insert(it, x); // Inserta manteniendo el orden
-    }
-}
-void imprimirVector(const std::vector<std::string>& v) {
-    cout << "=== Contenido del vector ===" << endl;
-    for (const auto& ruta : v) {
-        cout << ruta << endl;
-    }
-    cout << "=== Total: " << v.size() << " elementos ===" << endl;
-}
+*/

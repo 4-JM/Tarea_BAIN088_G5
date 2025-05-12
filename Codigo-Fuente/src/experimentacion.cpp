@@ -81,12 +81,12 @@ std::vector <std::string> extensiones = {
 
 //Funcion que crea el vector y mide el tiempo de su creacion
 
-std::chrono::microseconds creacionVector(vector<string>& vec, const string directorio) {
+chrono::microseconds creacionVector(vector<string>& vec, const string directorio) {
     // Iniciamos la marca de tiempo
     auto start = chrono::high_resolution_clock::now();
 
     // Creamos el vector 
-    vec = crear_vector(directorio);
+    vec = crearVector(directorio);
 
     // Terminamos la marca de tiempo
     auto end = chrono::high_resolution_clock::now();
@@ -103,24 +103,11 @@ string obtenerNombreAleatorio(const vector<string>& vec) {
     return ruta.filename().string();
 }
 
-/*
-// Esta función ordena el vector usando quickSort y mide cuánto se demora
-chrono::microseconds ordenarVector(vector<string>& v) {
-    auto inicio = chrono::high_resolution_clock::now();
-
-    quickSort(v, 0, v.size() - 1);
-
-    auto fin = chrono::high_resolution_clock::now();
-    auto duration_creation = chrono::duration_cast<chrono::microseconds>(fin - inicio);
-    return duration_creation;
-}
-
-*/
-
+//Ordena con quicksort
 chrono::microseconds ordenarVector(vector<string> &v){
     auto inicio = chrono::high_resolution_clock::now();
-
-    sort(v.begin(), v.end());
+    
+    quickSort(v, 0, v.size() - 1);
 
     auto fin = chrono::high_resolution_clock::now();
     auto duration_creation = chrono::duration_cast<chrono::microseconds>(fin - inicio);
@@ -131,12 +118,15 @@ chrono::microseconds ordenarVector(vector<string> &v){
 std::chrono::microseconds testSecSearch(vector <string> &vec){
     //Iniciamos la marca de tiempo
     chrono::high_resolution_clock::time_point start = chrono::high_resolution_clock::now();
+
     for (int i = 0; i < REP; i++){
         string testNombre = obtenerNombreAleatorio(vec);
         busquedaSecuencial(vec, testNombre);
     }
+
     //Terminamos la marca de tiempo
     chrono::high_resolution_clock::time_point end = chrono::high_resolution_clock::now();
+    
     auto duration_creation = chrono::duration_cast<chrono::microseconds>(end - start);
     return duration_creation; 
 }
@@ -179,6 +169,7 @@ std::chrono::microseconds testInsercion (vector <string> &vec){
     //Iniciamos la marca de tiempo  
     chrono::high_resolution_clock::time_point start = chrono::high_resolution_clock::now();
     for (int i = 0; i < REP; ++i) {
+
         // Seleccionar componentes al azar
         string carpeta = carpetas[rand() % carpetas.size()];
         string nombre = nombres[rand() % nombres.size()];
@@ -189,6 +180,7 @@ std::chrono::microseconds testInsercion (vector <string> &vec){
         insertaElemento(vec, ruta); 
     }
     //Terminamos la marca de tiempo
+    
     chrono::high_resolution_clock::time_point end = chrono::high_resolution_clock::now();
     auto duration_creation = chrono::duration_cast<chrono::microseconds>(end - start);
     return duration_creation;

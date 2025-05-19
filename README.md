@@ -9,3 +9,7 @@ La carpeta Lab-Ejemplo es una guia para hacer la medicion de los tiempos de ejec
 `make`
 3) Ejecutar el comando
 `./bin/file_experiments`
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+El presente repositorio corresponde al grupo 5. 
